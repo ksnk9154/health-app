@@ -19,9 +19,12 @@ def page_admin():
         password = st.text_input("Password", type="password", key="admin_new_password")
         role = st.selectbox("Role", ["User", "Staff"], index=1, key="admin_new_role")
         if st.button("Create"):
-            create_user(username=username, password=password, role=role)
-            st.success("User created")
-            st.rerun()
+            try:
+                create_user(username=username, password=password, role=role)
+                st.success("User created")
+                st.rerun()
+            except ValueError as e:
+                st.error(str(e))
 
     users = list_users()
 
